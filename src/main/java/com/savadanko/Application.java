@@ -17,10 +17,11 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        emailService.sendSimpleEmail(
+        emailService.sendMimeEmail(
                 "dankosaveliy.m@gmail.com",
                 "Spring Boot mail test",
-                "Привет! Это тест из моего Spring Boot приложения."
+                "Привет! Это тест из моего Spring Boot приложения.",
+                "img.png"
         );
     }
 }
