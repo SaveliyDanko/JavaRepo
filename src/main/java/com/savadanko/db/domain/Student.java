@@ -19,6 +19,9 @@ public class Student {
 
     private Integer age;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Dog dog;
+
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Teacher> teachers;
 

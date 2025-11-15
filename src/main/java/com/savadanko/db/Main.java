@@ -1,5 +1,6 @@
 package com.savadanko.db;
 
+import com.savadanko.db.domain.Dog;
 import com.savadanko.db.domain.Student;
 import com.savadanko.db.domain.Teacher;
 import com.savadanko.db.service.PersonService;
@@ -24,6 +25,9 @@ public class Main implements CommandLineRunner {
 
         Student person2 = new Student("Liza", 20);
 
+        Dog dog = new Dog();
+
+        person1.setDog(dog);
 
         person1.addTeacher(teacher);
 
