@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: jms-demo
+
+  artemis:
+    # embedded — брокер Artemis поднимается прямо внутри приложения,
+    # отдельный сервер запускать не нужно. Для реального брокера сменить на:
+    # mode: native + broker-url: tcp://localhost:61616
+    mode: embedded
+    embedded:
+      enabled: true
+      # очереди, которые брокер создаст при старте
+      queues: demo.queue

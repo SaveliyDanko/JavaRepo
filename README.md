@@ -1,31 +1,44 @@
-# JavaRepo
+# JavaRepo — ветка `jms`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **JMS (Java Message Service)** на Spring + ActiveMQ Artemis.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Эта ветка содержит зависимости под изучение JMS. Чистый каркас живёт в `main`.
 
 ## Стек
 
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
+- **Java 21**, **Gradle** (Kotlin DSL)
+- **Spring Boot 3.3.x** + `spring-boot-starter-artemis`
+- **ActiveMQ Artemis** — брокер запускается **embedded** (внутри процесса, ставить ничего не нужно)
+- Тесты: JUnit 5 + Awaitility (ожидание асинхронной доставки)
 
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/jms/
+├── JmsApplication.java     # точка входа, @EnableJms
+├── MessageProducer.java    # отправка через JmsTemplate.convertAndSend
+└── MessageConsumer.java    # приём через @JmsListener
+src/main/resources/application.yml   # Artemis в режиме embedded, очередь demo.queue
+src/test/java/.../JmsRoundTripTest.java  # отправка → приём
 ```
+
+## Ключевые понятия JMS
+
+- **Destination** — куда шлём: `Queue` (point-to-point, один получатель) или `Topic` (pub/sub, все подписчики).
+- **Producer / Consumer** — отправитель и получатель сообщений.
+- **JmsTemplate** — Spring-обёртка для отправки/синхронного приёма.
+- **@JmsListener** — декларативный асинхронный слушатель очереди.
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew test       # прогнать round-trip тест (поднимет embedded-брокер)
+./gradlew bootRun    # запустить приложение
 ```
 
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
+## Дальше можно попробовать
+
+- Topic вместо Queue (pub/sub), несколько слушателей
+- Объектные сообщения (сериализация POJO), `MessageConverter`
+- Транзакции, ручной `acknowledge`, обработка ошибок и DLQ
+- Внешний брокер: `spring.artemis.mode: native` + `broker-url`
