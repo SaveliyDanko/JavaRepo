@@ -1,9 +1,14 @@
 plugins {
     java
+    application
 }
 
 group = "com.savadanko"
 version = "0.0.1-SNAPSHOT"
+
+application {
+    mainClass = "com.savadanko.javarepo.scheduler.SchedulerDemo"
+}
 
 java {
     toolchain {
