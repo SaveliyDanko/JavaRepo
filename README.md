@@ -1,31 +1,27 @@
-# JavaRepo
+# JavaRepo — ветка `cron`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **cron-синтаксис и Spring `CronExpression`** — разбор выражения и
+вычисление моментов срабатывания без планировщика.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Дополняет темы-планировщики (`spring-scheduled`, `quartz`): здесь — сам cron
+> «в чистом виде». Базовый каркас живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/cron/
+├── CronCalculator.java   # обёртка над CronExpression: parse, next, nextRuns, isValid
+└── CronDemo.java         # печатает ближайшие запуски для набора выражений
+src/test/java/.../CronCalculatorTest.java   # детерминированные проверки
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/cron.md](docs/cron.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew run    # демонстрация ближайших срабатываний
+./gradlew test   # прогнать тесты
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
