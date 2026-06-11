@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: quartz-demo
+
+  quartz:
+    # RAMJobStore — джобы и триггеры хранятся в памяти (исчезают при рестарте).
+    # Для персистентности сменить на jdbc + настроить datasource.
+    job-store-type: memory

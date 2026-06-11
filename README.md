@@ -1,31 +1,27 @@
-# JavaRepo
+# JavaRepo — ветка `quartz`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **Quartz Scheduler** на Spring Boot (RAMJobStore — джобы в памяти).
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Самый мощный из планировщиков в линейке. Базовый каркас живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/quartz/
+├── QuartzApplication.java   # @SpringBootApplication (стартер сам поднимает Scheduler)
+├── ReportJob.java           # Job: execute() + чтение JobDataMap
+└── QuartzConfig.java        # бины JobDetail + Trigger (SimpleTrigger)
+src/main/resources/application.yml   # job-store-type: memory
+src/test/java/.../QuartzJobTest.java # проверка срабатывания по триггеру
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/quartz.md](docs/quartz.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew bootRun   # запустить приложение (джоб тикает в логах)
+./gradlew test      # прогнать тест
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
