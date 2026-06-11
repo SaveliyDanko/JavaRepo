@@ -22,12 +22,9 @@ src/main/resources/application.yml   # Artemis в режиме embedded, оче�
 src/test/java/.../JmsRoundTripTest.java  # отправка → приём
 ```
 
-## Ключевые понятия JMS
+## Теория
 
-- **Destination** — куда шлём: `Queue` (point-to-point, один получатель) или `Topic` (pub/sub, все подписчики).
-- **Producer / Consumer** — отправитель и получатель сообщений.
-- **JmsTemplate** — Spring-обёртка для отправки/синхронного приёма.
-- **@JmsListener** — декларативный асинхронный слушатель очереди.
+Краткая теоретическая сводка по теме — в [docs/jms.md](docs/jms.md).
 
 ## Команды
 
