@@ -1,31 +1,25 @@
-# JavaRepo
+# JavaRepo — ветка `jakarta-ee-timer`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **Jakarta EE Timer Service** (EJB-таймеры).
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Таймеры исполняет EE-контейнер (GlassFish/Payara/WildFly). Здесь — только API:
+> код компилируется против `jakarta.ejb`, тесты проверяют логику без контейнера.
+> Базовый каркас живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/eetimer/
+└── ReportTimerBean.java   # @Singleton @Startup: @Schedule (авто) + TimerService/@Timeout (программный)
+src/test/java/.../ReportTimerBeanTest.java   # проверка callback-логики бина
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/jakarta-ee-timer.md](docs/jakarta-ee-timer.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew test   # прогнать тесты (без EE-контейнера)
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
