@@ -1,31 +1,33 @@
-# JavaRepo
+# JavaRepo — ветка `kafka`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **Apache Kafka в Spring** (spring-kafka), брокер — внешний через
+docker-compose.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Брокер не embedded: поднимается отдельно (`docker compose up -d`). Базовый
+> каркас живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/kafka/
+├── KafkaApplication.java    # точка входа
+├── KafkaTopicConfig.java    # объявление топика (NewTopic)
+├── MessageProducer.java     # отправка через KafkaTemplate
+└── MessageConsumer.java     # приём через @KafkaListener
+src/main/resources/application.yml   # bootstrap-servers, сериализаторы, group-id
+docker-compose.yml                    # Kafka (KRaft, без ZooKeeper) на :9092
+src/test/java/.../KafkaRoundTripIT.java  # интеграционный тест (условный)
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/kafka.md](docs/kafka.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+docker compose up -d     # поднять Kafka на localhost:9092
+./gradlew test           # round-trip тест (только если брокер доступен)
+./gradlew bootRun        # запустить приложение
+docker compose down       # остановить брокер
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
