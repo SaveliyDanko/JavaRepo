@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: rabbitmq-demo
+
+  rabbitmq:
+    # параметры подключения к брокеру из docker-compose.yml
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

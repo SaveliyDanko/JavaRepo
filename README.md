@@ -1,31 +1,34 @@
-# JavaRepo
+# JavaRepo — ветка `rabbitmq`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **RabbitMQ в Spring** (AMQP, spring-boot-starter-amqp), брокер — внешний
+через docker-compose.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Брокер не embedded: поднимается отдельно (`docker compose up -d`). Базовый
+> каркас живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/rabbitmq/
+├── RabbitApplication.java   # точка входа + CommandLineRunner (демо-отправка при старте)
+├── RabbitConfig.java        # топология: Queue + DirectExchange + Binding
+├── MessageProducer.java     # отправка в exchange через RabbitTemplate
+└── MessageConsumer.java     # приём из очереди через @RabbitListener
+src/main/resources/application.yml   # host/port/credentials брокера
+docker-compose.yml                    # RabbitMQ + management UI
+src/test/java/.../MessageProducerTest.java  # unit-тест (без брокера, всегда идёт)
+src/test/java/.../RabbitRoundTripIT.java    # интеграционный тест (условный)
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/rabbitmq.md](docs/rabbitmq.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew test           # unit-тест идёт всегда; round-trip — только при поднятом брокере
+docker compose up -d     # RabbitMQ на :5672, UI на http://localhost:15672 (guest/guest)
+./gradlew bootRun        # старт приложения: CommandLineRunner шлёт демо-сообщение, consumer его логирует
+docker compose down      # остановить брокер
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
