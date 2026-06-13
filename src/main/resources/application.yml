@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: jpa-specification-demo
+
+  # H2 in-memory: создаётся при старте, исчезает при остановке — внешний сервер не нужен
+  datasource:
+    url: jdbc:h2:mem:demo
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop   # схему генерит Hibernate из сущностей
+    show-sql: true            # печатать SQL — видно, какой запрос собрала Specification
+    properties:
+      hibernate:
+        format_sql: true

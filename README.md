@@ -1,31 +1,33 @@
-# JavaRepo
+# JavaRepo — ветка `jpa-specification`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **JpaSpecificationExecutor** — динамические типобезопасные запросы в
+Spring Data JPA через `Specification` (Criteria API). БД — встроенная H2.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> БД in-memory: внешний сервер не нужен, тесты идут всегда. Базовый каркас
+> живёт в `main`.
 
-## Стек
-
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
-
-## Структура
+## Что внутри
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/jpaspecification/
+├── JpaSpecificationApplication.java  # точка входа Spring Boot
+├── Product.java                      # сущность (name, category, price, inStock)
+├── ProductRepository.java            # JpaRepository + JpaSpecificationExecutor
+├── ProductSpecifications.java        # переиспользуемые Specification (фильтры)
+├── ProductSearchService.java         # динамический поиск из опциональных фильтров
+└── DemoRunner.java                   # CommandLineRunner: наполнение H2 + демо-выборки
+src/main/resources/application.yml    # настройки H2 + show-sql
+src/test/java/.../ProductSpecificationsTest.java   # спеки и их композиция (@DataJpaTest)
+src/test/java/.../ProductSearchServiceTest.java    # динамический поиск
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/jpa-specification.md](docs/jpa-specification.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew test       # @DataJpaTest на H2: одиночные спеки, AND/OR-композиция, динамический поиск
+./gradlew bootRun    # DemoRunner наполняет H2 и печатает выборки по разным фильтрам
 ```
-
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.

@@ -1,5 +1,7 @@
 plugins {
     java
+    id("org.springframework.boot") version "3.3.5"
+    id("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "com.savadanko"
@@ -16,9 +18,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.11.3"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // spring-boot-starter-data-jpa: JpaRepository + JpaSpecificationExecutor (Criteria API)
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // H2 — встроенная in-memory БД, тесты идут без внешнего сервера
+    runtimeOnly("com.h2database:h2")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.test {
