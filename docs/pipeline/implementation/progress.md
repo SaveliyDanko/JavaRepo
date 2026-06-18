@@ -1,13 +1,13 @@
 # Реализация — прогресс
-Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T10
+Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T11
 
 ## Где мы сейчас (resume here)
-- Текущий stage: 04 — `ready-for-review` (все 3 под-шага `done`). Это последний stage темы.
-- Текущий шаг: stage 04 закрыт воркером; ждёт ревью (роль 04).
-- Статус шага: инвариант «один активный stage» соблюдён (01–03 approved, 04 ready-for-review).
+- Текущий stage: 04 — `approved` (ревью раунд 1, 0 blocking / 0 nit). Это последний stage темы.
+- Текущий шаг: все 4 stages `approved` — фаза IMPLEMENT/REVIEW завершена.
+- Статус шага: инвариант «один активный stage» соблюдён (все stages закрыты).
 - Ретраи текущего шага: 0
-- Следующее действие: REVIEW stage 04 (роль 04) — сверить README с планом/гайдом, прогнать финальный `./gradlew test`, вынести вердикт.
-- Состояние проверок: финальный `./gradlew test --rerun-tasks` зелёный — 43 теста (42 параметризованных кейса + MainTest), 0 failures/errors. Scope чист: в рабочем дереве изменён только `README.md`, `build.gradle.kts` не тронут.
+- Следующее действие: ACCEPTANCE (роль 05) — вход GT4 (все stages approved + проект собирается); финальная приёмка проектного DoD.
+- Состояние проверок: финальный `./gradlew test --rerun-tasks` зелёный (BUILD SUCCESSFUL, 0 failures/errors). Scope чист: vs `main` изменён только `README.md`, `build.gradle.kts` не тронут.
 
 ## Stages
 | #  | Stage                          | Статус реализации | Готово шагов | Файл плана                    |
@@ -15,7 +15,7 @@
 | 01 | SUT `NumberClassifier`         | approved          | 3/3          | 01-sut-number-classifier.md   |
 | 02 | Параметризованные тесты        | approved          | 5/5          | 02-parameterized-tests.md     |
 | 03 | Сводка `parameterized-tests.md`| approved          | 4/4          | 03-theory-summary.md          |
-| 04 | README ветки + DoD             | ready-for-review  | 3/3          | 04-readme-and-dod.md          |
+| 04 | README ветки + DoD             | approved          | 3/3          | 04-readme-and-dod.md          |
 
 ## Шаги
 ### Stage 01 — SUT `NumberClassifier` + `Category`  [approved]
@@ -36,7 +36,7 @@
 - [x] 3.3 Связь источников с методами в коде
 - [x] 3.4 «Полезно знать» (расширения помечены вне v1)
 
-### Stage 04 — README ветки + финальный DoD  [ready-for-review]
+### Stage 04 — README ветки + финальный DoD  [approved]
 - [x] 4.1 Обновить README ветки под тему (раздел темы + структура пакета + ссылка на сводку)
 - [x] 4.2 Финальный прогон `./gradlew test`
 - [x] 4.3 Сверка проектного DoD темы
