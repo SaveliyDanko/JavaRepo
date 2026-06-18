@@ -1,24 +1,24 @@
 # Реализация — прогресс
-Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T4
+Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T5
 
 ## Где мы сейчас (resume here)
-- Текущий stage: 01 — SUT `NumberClassifier` + `Category`
-- Текущий шаг: все шаги stage 01 завершены (3/3)
-- Статус шага: done
+- Текущий stage: 01 — `approved` (ревью раунд 1, 0 blocking). Следующий — stage 02.
+- Текущий шаг: stage 01 завершён и принят; stage 02 ещё не начат (0/?).
+- Статус шага: stage 01 approved → старт stage 02 (реализация параметризованных тестов).
 - Ретраи текущего шага: 0
-- Следующее действие: ревью stage 01 (роль 04). Stage 02 НЕ начинать, пока stage 01 не `approved`.
+- Следующее действие: воркер (роль 03) реализует stage 02 по `stages/02-parameterized-tests.md`.
 - Состояние проверок: `./gradlew test` зелёный (baseline `MainTest`); код компилируется; изменения только в `src/main/...`, `build.gradle.kts` не тронут.
 
 ## Stages
 | #  | Stage                          | Статус реализации | Готово шагов | Файл плана                    |
 |----|--------------------------------|-------------------|--------------|-------------------------------|
-| 01 | SUT `NumberClassifier`         | ready-for-review  | 3/3          | 01-sut-number-classifier.md   |
+| 01 | SUT `NumberClassifier`         | approved          | 3/3          | 01-sut-number-classifier.md   |
 | 02 | Параметризованные тесты        | todo              | 0/?          | 02-parameterized-tests.md     |
 | 03 | Сводка `parameterized-tests.md`| todo              | 0/?          | 03-theory-summary.md          |
 | 04 | README ветки + DoD             | todo              | 0/?          | 04-readme-and-dod.md          |
 
 ## Шаги
-### Stage 01 — SUT `NumberClassifier` + `Category`  [ready-for-review]
+### Stage 01 — SUT `NumberClassifier` + `Category`  [approved]
 - [x] 1.1 Проверка-предпосылка (ветка `parameterized-tests` + baseline `./gradlew test` зелёный)
 - [x] 1.2 Пакет темы + enum `Category`
 - [x] 1.3 `NumberClassifier` (предикаты + `classify` + `isParsableNumber`)

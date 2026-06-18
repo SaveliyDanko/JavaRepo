@@ -16,3 +16,4 @@
 - 2026-06-18 · DETAIL(02) · Null/Empty источники демонстрируем на `NumberClassifier.isParsableNumber(String)` · `@NullSource`/`@EmptySource` применимы к ссылочным типам, а не к `int`; нужен строковый метод в SUT.
 - 2026-06-18 · DETAIL(02) · Батч детализации 2 принят авто (гейт GR4 = auto) · детализирован stage 04 (README ветки + финальный DoD); недетализированных stages не осталось.
 - 2026-06-18 · DETAIL(02) · Флаг «Готовность к разработке» = да (все 4 stages `done`) · handshake воркеру (роль 03): план можно передавать в IMPLEMENT.
+- 2026-06-18 · REVIEW(04) · Stage 01 принят авто, вердикт `approved` (гейт GR5 = auto-with-guard) · guard выполнен: `./gradlew test` зелёный и 0 открытых `blocking` (раунд 1); код совпадает с планом/DoD, scope чистый.
