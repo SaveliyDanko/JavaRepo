@@ -1,31 +1,45 @@
-# JavaRepo
+# JavaRepo — ветка `parameterized-tests`
 
-Учебный репозиторий для изучения и практики Java.
+Тема: **@Parameterized Tests (JUnit 5)** — один и тот же тест прогоняется на
+множестве наборов входных данных.
 
-`main` держится максимально чистым: только Java + Gradle + JUnit 5.
-Любые зависимости (Spring, JPA, БД и т.п.) подключаются в отдельных
-тематических ветках под конкретную тему изучения.
+> Эта ветка содержит пример параметризованных тестов. Чистый каркас живёт в `main`.
+> Дополнительных зависимостей не нужно: `junit-jupiter-params` приходит
+> транзитивно вместе с `junit-jupiter`, `build.gradle.kts` не менялся.
 
 ## Стек
 
-- **Java 21** (LTS)
-- **Gradle** (Kotlin DSL, `build.gradle.kts`) + wrapper
-- **JUnit 5** — тесты
+- **Java 21**, **Gradle** (Kotlin DSL)
+- **JUnit 5** (`junit-jupiter`) — параметризованные тесты через
+  `junit-jupiter-params` (транзитивная зависимость)
 
-## Структура
+## Что внутри
+
+Один маленький SUT и один тест-класс, в котором по очереди показаны все
+источники параметров JUnit 5:
 
 ```
-src/main/java/com/savadanko/javarepo/Main.java
-src/test/java/com/savadanko/javarepo/MainTest.java
+src/main/java/com/savadanko/javarepo/parameterizedtests/
+├── Category.java          # enum-категория числа (для @EnumSource)
+└── NumberClassifier.java  # классификатор: isEven/isOdd/isPrime/classify/isParsableNumber
+src/test/java/com/savadanko/javarepo/parameterizedtests/
+└── NumberClassifierParameterizedTest.java  # @ValueSource, @MethodSource, @CsvSource,
+                                            # @EnumSource, @NullSource/@EmptySource
 ```
+
+## Теория
+
+Краткая теоретическая сводка по теме — в [docs/parameterized-tests.md](docs/parameterized-tests.md).
 
 ## Команды
 
 ```bash
-./gradlew build   # собрать и прогнать тесты
-./gradlew test    # только тесты
-./gradlew run     # запустить Main (требует плагина application — добавишь при необходимости)
+./gradlew test    # прогнать параметризованные тесты
 ```
 
-> Для `./gradlew run` понадобится плагин `application` в `build.gradle.kts`.
-> Пока запускать можно из IDE или собранным classpath.
+## Дальше можно попробовать
+
+- `@CsvFileSource` — наборы данных из CSV-файла в ресурсах
+- Кастомный `ArgumentsProvider` через `@ArgumentsSource`
+- Конвертеры/агрегаторы аргументов (`@ConvertWith`, `@AggregateWith`)
+- `@ParameterizedTest` с несколькими источниками сразу и фильтрами `@EnumSource(names=…, mode=…)`
