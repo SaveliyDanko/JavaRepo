@@ -1,20 +1,20 @@
 # Реализация — прогресс
-Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T8
+Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T9
 
 ## Где мы сейчас (resume here)
-- Текущий stage: 03 — `ready-for-review` (сводка `docs/parameterized-tests.md` написана). Следующий — REVIEW stage 03.
-- Текущий шаг: stage 03 завершён (все под-шаги done); ждёт вердикта reviewer.
-- Статус шага: stage 03 ready-for-review → инвариант «один активный stage» соблюдён (02 approved).
+- Текущий stage: 03 — `approved` (ревью раунд 1, 0 blocking / 0 nit). Следующий — IMPLEMENT stage 04 (README ветки + DoD).
+- Текущий шаг: stage 03 закрыт; stage 04 ещё `todo` — следующий незакрытый stage по плану.
+- Статус шага: инвариант «один активный stage» соблюдён (01–03 approved, 04 todo).
 - Ретраи текущего шага: 0
-- Следующее действие: reviewer (роль 04) проверяет stage 03 (соответствие DoD/формату `how-to-add-a-topic.md`, имена источников = код).
-- Состояние проверок: stage 03 — документация (только `docs/`), кода/сборки не меняет; имена аннотаций и методов в сводке сверены с `NumberClassifierParameterizedTest`/`NumberClassifier`/`Category`. Тесты прежние — зелёные (T7).
+- Следующее действие: воркер (роль 03) реализует stage 04 — обновить README ветки под тему со ссылкой на `docs/parameterized-tests.md`, прогнать финальный `./gradlew test`.
+- Состояние проверок: stage 03 — документация (только `docs/`), кода/сборки не меняет; имена аннотаций и методов в сводке сверены с `NumberClassifierParameterizedTest`/`NumberClassifier`/`Category` (ревью `review/03-theory-summary.md`). Тесты прежние — зелёные (T7).
 
 ## Stages
 | #  | Stage                          | Статус реализации | Готово шагов | Файл плана                    |
 |----|--------------------------------|-------------------|--------------|-------------------------------|
 | 01 | SUT `NumberClassifier`         | approved          | 3/3          | 01-sut-number-classifier.md   |
 | 02 | Параметризованные тесты        | approved          | 5/5          | 02-parameterized-tests.md     |
-| 03 | Сводка `parameterized-tests.md`| ready-for-review  | 4/4          | 03-theory-summary.md          |
+| 03 | Сводка `parameterized-tests.md`| approved          | 4/4          | 03-theory-summary.md          |
 | 04 | README ветки + DoD             | todo              | 0/?          | 04-readme-and-dod.md          |
 
 ## Шаги
@@ -30,7 +30,7 @@
 - [x] 2.4 `@EnumSource` — `everyCategoryIsConsistent` / `standardCategories` / `specialCategories` (`names`+`mode`)
 - [x] 2.5 Null/Empty — `blankIsNotParsable` (`@NullSource`+`@EmptySource`) / `nullAndEmptyCombined` (`@NullAndEmptySource`+`@ValueSource`)
 
-### Stage 03 — Сводка `docs/parameterized-tests.md`  [ready-for-review]
+### Stage 03 — Сводка `docs/parameterized-tests.md`  [approved]
 - [x] 3.1 Заголовок + «Что это и зачем»
 - [x] 3.2 Ключевые понятия (все 6 источников)
 - [x] 3.3 Связь источников с методами в коде
