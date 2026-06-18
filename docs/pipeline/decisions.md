@@ -17,3 +17,4 @@
 - 2026-06-18 · DETAIL(02) · Батч детализации 2 принят авто (гейт GR4 = auto) · детализирован stage 04 (README ветки + финальный DoD); недетализированных stages не осталось.
 - 2026-06-18 · DETAIL(02) · Флаг «Готовность к разработке» = да (все 4 stages `done`) · handshake воркеру (роль 03): план можно передавать в IMPLEMENT.
 - 2026-06-18 · REVIEW(04) · Stage 01 принят авто, вердикт `approved` (гейт GR5 = auto-with-guard) · guard выполнен: `./gradlew test` зелёный и 0 открытых `blocking` (раунд 1); код совпадает с планом/DoD, scope чистый.
+- 2026-06-18 · REVIEW(04) · Stage 02 принят авто, вердикт `approved` (гейт GR5 = auto-with-guard) · guard выполнен: `./gradlew test --rerun-tasks` зелёный (42 кейса, 0 failures/errors) и 0 открытых `blocking`/`nit` (раунд 1); все источники параметров продемонстрированы по плану, DoD выполнен, scope чистый (`build.gradle.kts` не тронут).

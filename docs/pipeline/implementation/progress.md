@@ -1,19 +1,19 @@
 # Реализация — прогресс
-Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T6
+Источник плана: docs/pipeline/stages/   •   Обновлено: 2026-06-18 / сессия T7
 
 ## Где мы сейчас (resume here)
-- Текущий stage: 02 — `ready-for-review` (все 5 под-шагов done). Следующий — REVIEW stage 02.
-- Текущий шаг: stage 02 завершён, передан на ревью; stage 03 ещё не начат.
-- Статус шага: stage 02 ready-for-review → ждёт reviewer (роль 04).
+- Текущий stage: 02 — `approved` (ревью раунд 1, 0 blocking / 0 nit). Следующий — IMPLEMENT stage 03.
+- Текущий шаг: stage 02 принят; stage 03 (`Сводка parameterized-tests.md`) ещё не начат.
+- Статус шага: stage 02 approved → инвариант «один активный stage» соблюдён, можно начинать stage 03.
 - Ретраи текущего шага: 0
-- Следующее действие: reviewer (роль 04) проверяет stage 02 по `stages/02-parameterized-tests.md` и DoD.
-- Состояние проверок: `./gradlew test` зелёный — 42 параметризованных кейса в `NumberClassifierParameterizedTest` + baseline `MainTest`, 0 failures; изменения только в `src/test/...`, `build.gradle.kts` не тронут.
+- Следующее действие: воркер (роль 03) реализует stage 03 по `stages/03-theory-summary.md` и DoD.
+- Состояние проверок: `./gradlew test --rerun-tasks` зелёный — 42 кейса в `NumberClassifierParameterizedTest` + baseline `MainTest`, 0 failures/errors; `build.gradle.kts` не тронут (diff vs main).
 
 ## Stages
 | #  | Stage                          | Статус реализации | Готово шагов | Файл плана                    |
 |----|--------------------------------|-------------------|--------------|-------------------------------|
 | 01 | SUT `NumberClassifier`         | approved          | 3/3          | 01-sut-number-classifier.md   |
-| 02 | Параметризованные тесты        | ready-for-review  | 5/5          | 02-parameterized-tests.md     |
+| 02 | Параметризованные тесты        | approved          | 5/5          | 02-parameterized-tests.md     |
 | 03 | Сводка `parameterized-tests.md`| todo              | 0/?          | 03-theory-summary.md          |
 | 04 | README ветки + DoD             | todo              | 0/?          | 04-readme-and-dod.md          |
 
@@ -23,7 +23,7 @@
 - [x] 1.2 Пакет темы + enum `Category`
 - [x] 1.3 `NumberClassifier` (предикаты + `classify` + `isParsableNumber`)
 
-### Stage 02 — Параметризованные тесты  [ready-for-review]
+### Stage 02 — Параметризованные тесты  [approved]
 - [x] 2.1 `@ValueSource` — `evenNumbers` / `oddNumbers`
 - [x] 2.2 `@MethodSource` — `primeNumbers` / `notPrime` (+ фабрики `primes`/`nonPrimes`)
 - [x] 2.3 `@CsvSource` — `classifyFromCsv` (конверсия `String→int`, `String→Category`)
